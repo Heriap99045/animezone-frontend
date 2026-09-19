@@ -223,7 +223,6 @@
       <a href="#" id="nav-home" class="active">Beranda</a>
       <a href="#row-seasonal">Terbaru</a>
       <a href="#row-top">Rating Tertinggi</a>
-      <a href="#legal">Tonton Legal</a>
     </nav>
   </div>
   <div class="nav-right">
@@ -322,24 +321,6 @@
   </div>
 
   <div id="no-results" style="display:none;">Tidak ada judul yang cocok dengan pencarianmu.</div>
-
-  <section id="legal" style="padding:0 44px; margin-top:40px;">
-    <div style="border:1px solid var(--line); border-radius:6px; padding:28px 30px; display:flex; gap:20px; align-items:center; flex-wrap:wrap; background:rgba(212,42,42,0.04);">
-      <div style="width:46px; height:46px; border:1.5px solid var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="width:22px;height:22px;"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><path d="m9 12 2 2 4-4"/></svg>
-      </div>
-      <div style="flex:1; min-width:240px;">
-        <h3 style="font-family:var(--font-head); font-size:17px; margin-bottom:6px;">ANIMEZONE tidak meng-hosting video</h3>
-        <p style="font-size:13px; color:var(--text-dim); max-width:60ch; line-height:1.6;">Tombol "Tonton" mengarahkanmu ke platform streaming berlisensi resmi. Kami hanya menyediakan direktori, sinopsis, dan rating — bukan file video.</p>
-      </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <div class="plat-tag">Crunchyroll</div>
-        <div class="plat-tag">Netflix</div>
-        <div class="plat-tag">Vidio</div>
-        <div class="plat-tag">Bstation</div>
-      </div>
-    </div>
-  </section>
 </div>
 
 <div id="modal-overlay">
@@ -370,22 +351,20 @@
   <div class="foot-grid">
     <div>
       <h4>ANIMEZONE</h4>
-      <p>Direktori dan ulasan anime independen. Data judul, sinopsis, dan rating pada situs ini adalah data contoh untuk demonstrasi.</p>
+      <p>Direktori dan ulasan anime — menampilkan judul, sinopsis, genre, dan rating terkini dari AniList.</p>
     </div>
     <div>
       <h4>JELAJAHI</h4>
       <a href="#row-seasonal">Terbaru</a>
       <a href="#row-toprated">Rating Tertinggi</a>
-      <a href="#legal">Tonton Legal</a>
     </div>
     <div>
       <h4>TENTANG</h4>
-      <a href="#legal">Kebijakan Tonton Legal</a>
       <a href="#" class="info-link" data-info="kontak">Kontak</a>
       <a href="#" class="info-link" data-info="tos">Ketentuan Layanan</a>
     </div>
   </div>
-  <div class="copyright">© 2026 ANIMEZONE. Situs demo — bukan penyedia layanan streaming.</div>
+  <div class="copyright">© 2026 ANIMEZONE. Bukan penyedia layanan streaming — tombol Tonton mengarah ke platform resmi.</div>
 </footer>
 
 <div id="info-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:300; align-items:center; justify-content:center; padding:20px;">
@@ -559,6 +538,17 @@
   const API_BASE = "https://animezone-backend.onrender.com/api/anime";
   let usingBackend = false;
 
+  const STATUS_LABELS = {
+    FINISHED: "Tamat",
+    RELEASING: "Sedang Tayang",
+    NOT_YET_RELEASED: "Belum Tayang",
+    CANCELLED: "Dibatalkan",
+    HIATUS: "Hiatus",
+  };
+  function statusLabel(status){
+    return STATUS_LABELS[status] || status || "";
+  }
+
   function adaptBackendItem(it){
     const synopsisShort = it.synopsis
       ? (it.synopsis.length > 240 ? it.synopsis.slice(0,240) + "…" : it.synopsis)
@@ -567,7 +557,7 @@
       id: it.id,
       t: it.titleEnglish || it.title,
       g: (it.genres || []).slice(0,2).join(" · ") || "Anime",
-      ep: it.episodes ? `Ep ${it.episodes}` : (it.status || ""),
+      ep: it.episodes ? `Ep ${it.episodes}` : statusLabel(it.status),
       badge: it.score >= 8 ? "TOP" : null,
       score: it.score ? Math.round(it.score * 10) : 80,
       img: it.image,
@@ -595,7 +585,7 @@
       document.getElementById('demo-banner').style.display = 'none';
     } catch (err) {
       usingBackend = false;
-      document.getElementById('demo-banner').textContent = 'Mode demo — backend belum terhubung, menampilkan data contoh.';
+      document.getElementById('demo-banner').textContent = 'Server sedang tidak terhubung — menampilkan data contoh sementara.';
       document.getElementById('demo-banner').style.display = 'block';
     }
   }
