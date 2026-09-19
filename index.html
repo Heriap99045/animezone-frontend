@@ -236,6 +236,9 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       <input type="text" id="search-input" placeholder="Cari judul, genre…">
     </div>
+    <a href="https://saweria.co/kacangpro" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px; padding:8px 14px; border-radius:20px; background:var(--accent); color:#fff; font-size:12.5px; font-weight:700; white-space:nowrap;">
+      ❤ Dukung
+    </a>
     <div style="position:relative;">
       <div class="avatar" id="avatar-btn" style="cursor:pointer;">AZ</div>
       <div id="avatar-menu" style="display:none; position:absolute; top:42px; right:0; background:#181818; border:1px solid var(--line); border-radius:4px; width:170px; overflow:hidden; z-index:250; box-shadow:0 12px 30px rgba(0,0,0,0.6);">
@@ -366,6 +369,7 @@
     </div>
     <div>
       <h4>TENTANG</h4>
+      <a href="#" class="info-link" data-info="privacy">Kebijakan Privasi</a>
       <a href="#" class="info-link" data-info="kontak">Kontak</a>
       <a href="#" class="info-link" data-info="tos">Ketentuan Layanan</a>
     </div>
@@ -766,9 +770,16 @@
       e.preventDefault();
       const type = a.dataset.info;
       if (type === 'kontak') {
-        openInfo('Kontak', 'Untuk pertanyaan, kerja sama, atau laporan masalah pada situs demo ini, hubungi kami melalui email di <strong>halo@animezone.demo</strong>.');
+        openInfo('Kontak', 'Untuk pertanyaan, kerja sama, atau laporan masalah, hubungi kami melalui email di <strong>halo@animezone.biz.id</strong>.');
       } else if (type === 'tos') {
-        openInfo('Ketentuan Layanan', 'ANIMEZONE adalah direktori informasi anime. Kami tidak meng-hosting, menyimpan, atau mendistribusikan file video berhak cipta apa pun. Tautan "Tonton" mengarahkan pengguna ke platform streaming pihak ketiga yang berlisensi resmi. Data judul, sinopsis, dan rating ditampilkan untuk tujuan informasi.');
+        openInfo('Ketentuan Layanan', 'ANIMEZONE adalah direktori informasi anime. Kami tidak meng-hosting, menyimpan, atau mendistribusikan file video berhak cipta apa pun. Tautan "Tonton" mengarahkan pengguna ke platform streaming pihak ketiga yang berlisensi resmi. Data judul, sinopsis, dan rating ditampilkan untuk tujuan informasi, bersumber dari AniList.');
+      } else if (type === 'privacy') {
+        openInfo('Kebijakan Privasi', `
+          <p style="margin-bottom:12px;"><strong>Data yang kami simpan:</strong> Daftar Tontonanku disimpan hanya di perangkat/browser Anda sendiri (localStorage), tidak dikirim atau disimpan di server kami.</p>
+          <p style="margin-bottom:12px;"><strong>Layanan pihak ketiga:</strong> Data anime (judul, sinopsis, poster) diambil dari AniList API. Situs ini di-hosting di GitHub Pages. Donasi diproses oleh Saweria — kami tidak menerima atau menyimpan data pembayaran Anda.</p>
+          <p style="margin-bottom:12px;"><strong>Cookie & iklan:</strong> Jika di kemudian hari kami menampilkan iklan (mis. Google AdSense), pihak ketiga tersebut dapat menggunakan cookie untuk personalisasi iklan sesuai kebijakan privasi masing-masing.</p>
+          <p>Ada pertanyaan soal privasi? Hubungi kami di <strong>halo@animezone.biz.id</strong>.</p>
+        `);
       }
     });
   });
