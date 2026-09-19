@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">Detail Anime — ANIMEZONE</title>
+<meta name="description" id="page-description" content="Detail anime di ANIMEZONE — sinopsis, genre, rating, dan tautan tonton resmi.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230B0B0B'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Arial, sans-serif' font-weight='700' fill='%23D42A2A' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8724735693442930" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --bg: #0B0B0B; --card-bg: #181818; --accent: #D42A2A; --accent-dim: #9E1F1F;
+    --text: #F2F2F2; --text-dim: #9C9C9C; --line: rgba(255,255,255,0.08);
+    --font-head: 'Oswald', sans-serif; --font-body: 'Inter', sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--text); font-family:var(--font-body); }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+
+  header{
+    position:sticky; top:0; z-index:50; background:rgba(11,11,11,0.95);
+    border-bottom:1px solid var(--line); display:flex; align-items:center;
+    justify-content:space-between; padding:16px 44px;
+  }
+  .logo{ font-family:var(--font-head); font-weight:700; font-size:22px; color:var(--accent); letter-spacing:1px; }
+  .back-link{ font-size:13px; color:var(--text-dim); display:flex; align-items:center; gap:6px; }
+  .back-link:hover{ color:#fff; }
+  @media(max-width:700px){ header{ padding:14px 20px; } }
+
+  .wrap{ max-width:1000px; margin:0 auto; padding:40px 44px 80px; }
+  @media(max-width:700px){ .wrap{ padding:28px 20px 60px; } }
+
+  #state-loading, #state-error{ text-align:center; padding:100px 20px; color:var(--text-dim); }
+  #state-error{ display:none; }
+
+  #detail{ display:none; }
+  .detail-grid{ display:grid; grid-template-columns:260px 1fr; gap:36px; }
+  @media(max-width:700px){ .detail-grid{ grid-template-columns:1fr; } }
+  .poster{ border-radius:6px; overflow:hidden; border:1px solid var(--line); }
+  .poster img{ width:100%; }
+
+  .badge-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .badge{ font-size:11.5px; padding:5px 12px; border-radius:14px; border:1px solid var(--line); color:var(--text-dim); }
+  .badge.score{ color:#4ADE80; border-color:rgba(74,222,128,0.3); }
+
+  h1{ font-family:var(--font-head); font-size:clamp(26px,4vw,38px); font-weight:700; margin-bottom:16px; line-height:1.1; }
+  .synopsis{ font-size:15px; color:#D8D8D8; line-height:1.75; margin-bottom:28px; white-space:pre-line; }
+
+  .platforms-label{ font-size:12px; color:var(--text-dim); margin-bottom:10px; font-weight:600; }
+  .platforms{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+  .plat-btn{
+    display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:3px;
+    font-size:14px; font-weight:700; background:#fff; color:#000;
+  }
+  .plat-btn:hover{ opacity:0.85; }
+  .plat-btn.secondary{ background:rgba(120,120,120,0.35); color:#fff; }
+
+  .ad-slot{ margin:36px 0; min-height:90px; display:flex; align-items:center; justify-content:center; }
+
+  footer{ border-top:1px solid var(--line); padding:28px 44px; text-align:center; font-size:12px; color:#5A5A5A; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="./" class="logo">ANIMEZONE</a>
+  <a href="./" class="back-link">← Kembali ke Beranda</a>
+</header>
+
+<div class="wrap">
+  <div id="state-loading">Memuat data anime…</div>
+  <div id="state-error">
+    <p style="margin-bottom:16px;">Anime tidak ditemukan atau server sedang tidak terhubung.</p>
+    <a href="./" style="color:var(--accent); font-weight:600;">← Kembali ke beranda</a>
+  </div>
+
+  <div id="detail">
+    <div class="detail-grid">
+      <div class="poster"><img id="d-img" src="" alt=""></div>
+      <div>
+        <div class="badge-row" id="d-badges"></div>
+        <h1 id="d-title"></h1>
+        <p class="synopsis" id="d-synopsis"></p>
+        <div class="platforms-label">Tonton secara legal di:</div>
+        <div class="platforms" id="d-platforms"></div>
+      </div>
+    </div>
+
+    <div class="ad-slot">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-8724735693442930"
+           data-ad-slot=""
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 ANIMEZONE. Data disediakan oleh <a href="https://anilist.co" target="_blank" rel="noopener" style="text-decoration:underline;">AniList</a>.</footer>
+
+<script>
+  const API_BASE = "https://animezone-backend.onrender.com/api/anime";
+  const STATUS_LABELS = {
+    FINISHED: "Tamat", RELEASING: "Sedang Tayang", NOT_YET_RELEASED: "Belum Tayang",
+    CANCELLED: "Dibatalkan", HIATUS: "Hiatus",
+  };
+
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+
+  async function loadDetail(){
+    if (!id) return showError();
+    try {
+      const res = await fetch(`${API_BASE}/${id}`, { signal: AbortSignal.timeout(45000) });
+      if (!res.ok) throw new Error('not ok');
+      const data = await res.json();
+      if (!data.result) throw new Error('empty');
+      render(data.result);
+    } catch (err) {
+      showError();
+    }
+  }
+
+  function showError(){
+    document.getElementById('state-loading').style.display = 'none';
+    document.getElementById('state-error').style.display = 'block';
+  }
+
+  function render(it){
+    const title = it.titleEnglish || it.title || 'Anime';
+    const synopsis = it.synopsis || 'Sinopsis belum tersedia.';
+    const genres = (it.genres || []).join(' · ');
+    const statusText = STATUS_LABELS[it.status] || it.status || '';
+    const epText = it.episodes ? `${it.episodes} Episode` : statusText;
+
+    document.getElementById('page-title').textContent = `${title} — ANIMEZONE`;
+    document.getElementById('page-description').setAttribute('content', synopsis.slice(0,155));
+
+    document.getElementById('d-img').src = it.image || '';
+    document.getElementById('d-img').alt = 'Poster ' + title;
+    document.getElementById('d-title').textContent = title;
+    document.getElementById('d-synopsis').textContent = synopsis;
+
+    const badges = [];
+    if (it.score) badges.push(`<div class="badge score">${Math.round(it.score*10)}% cocok</div>`);
+    if (epText) badges.push(`<div class="badge">${epText}</div>`);
+    if (genres) badges.push(`<div class="badge">${genres}</div>`);
+    document.getElementById('d-badges').innerHTML = badges.join('');
+
+    const platforms = (it.streaming || []).map(s =>
+      `<a class="plat-btn" href="${s.url}" target="_blank" rel="noopener">▶ ${s.name}</a>`
+    );
+    if (it.url) platforms.push(`<a class="plat-btn secondary" href="${it.url}" target="_blank" rel="noopener">Lihat di AniList</a>`);
+    document.getElementById('d-platforms').innerHTML = platforms.join('') || '<div style="color:var(--text-dim); font-size:13px;">Belum ada tautan platform resmi untuk judul ini.</div>';
+
+    document.getElementById('state-loading').style.display = 'none';
+    document.getElementById('detail').style.display = 'block';
+
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+  }
+
+  loadDetail();
+</script>
+
+</body>
+</html>
